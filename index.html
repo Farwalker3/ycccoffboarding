@@ -9,23 +9,61 @@
 </head>
 
 <body>
-  <h1>Contact</h1>
-  <form data-static-form-name="contact">
-    <div>
-      <label>Name<input type="text" name="name" /></label>
-    </div>
-    <div>
-      <label>Email<input type="email" name="email" /></label>
-    </div>
-    <div>
-      <label>Message<textarea name="message"></textarea></label>
-    </div>
-    <button type="submit">Send!</button>
+  <form id="contact-form">
+  <input type="text" name="name" placeholder="Name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <textarea name="message" placeholder="Message" required></textarea>
+  <input type="submit" value="Send" />
     <!-- Add this div somewhere INSIDE the <form> (tip: you can change between dark/light widget) -->
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAAZkSny6TuOXHxjJ" data-theme="dark"></div>
   </form>
   <!-- Add this script outside of the <form> -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+      // Get the form element with the id "contact-form"
+      const form = document.getElementById("contact-form");
+
+      // Add an event listener to the form that triggers the submitForm function when the form is submitted
+      form.addEventListener("submit", submitForm);
+
+      // Function to handle form submission
+      function submitForm(event) {
+          event.preventDefault();
+          // Create a FormData object from the form
+          const formData = new FormData(event.target as HTMLFormElement);
+
+          // Send the form to the Cloudflare Worker that will listen to requests on the "/submit-contact-form" path
+          fetch("/submit-contact-form", {
+              method: "POST",
+              body: formData,
+          })
+              .then((response) => {
+                  // Parse the response text and include the response status
+                  return response.text().then((text) => ({
+                      text,
+                      ok: response.ok,
+                  }));
+              })
+              .then(({ text, ok }) => {
+                  // If the request was successful, disable the form
+                  if (ok) {
+                      // You can modify/add something else here
+                      form.removeEventListener("submit", submitForm);
+                      form.reset();
+                      document.querySelectorAll("input, textarea").forEach((input) => (input.disabled = true));
+                  } else {
+                      // If the request was not successful, throw an error
+                      throw new Error();
+                  }
+              })
+              // Catch any errors that occur during the fetch request
+              .catch(() => {
+          console.log("Error")
+              // You can add something that should happen when the form failed
+              });
+      }
+  </script>
+  <script src="script.js"></script>
 </body>
 
 </html>
