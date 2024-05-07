@@ -30,7 +30,7 @@
       function submitForm(event) {
           event.preventDefault();
           // Create a FormData object from the form
-          const formData = new FormData(event.target as HTMLFormElement);
+          const formData = new FormData(event.target);
 
           // Send the form to the Cloudflare Worker that will listen to requests on the "/submit-contact-form" path
           fetch("/submit-contact-form", {
