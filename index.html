@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>YCCC Offboarding</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <h1>Contact</h1>
+  <form data-static-form-name="contact">
+    <div>
+      <label>Name<input type="text" name="name" /></label>
+    </div>
+    <div>
+      <label>Email<input type="email" name="email" /></label>
+    </div>
+    <div>
+      <label>Message<textarea name="message"></textarea></label>
+    </div>
+    <button type="submit">Send!</button>
+    <!-- Add this div somewhere INSIDE the <form> (tip: you can change between dark/light widget) -->
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAZkSny6TuOXHxjJ" data-theme="dark"></div>
+  </form>
+  <!-- Add this script outside of the <form> -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+
+</html>
