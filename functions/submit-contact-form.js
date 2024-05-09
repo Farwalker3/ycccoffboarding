@@ -36,7 +36,7 @@ async function sendFormToMe(body, ENV) {
         body: JSON.stringify({
             personalizations: [
                 {
-                    to: [{ email: "me@yourdomain.com" }], // CHANGE THIS to your email address (emails will be sent TO this address).
+                    to: [{ email: "Farwalker3@icloud.com" }], // CHANGE THIS to your email address (emails will be sent TO this address).
                     dkim_domain: ENV.DOMAIN,
                     dkim_selector: ENV.DKIM_SELECTOR,
                     dkim_private_key: ENV.DKIM_PRIVATE_KEY,
@@ -44,7 +44,7 @@ async function sendFormToMe(body, ENV) {
             ],
             from: {
                 name: "Contact Form",
-                email: "no-reply@yourdomain.com", // CHANGE THIS to your email address (emails will be sent FROM this address).
+                email: "foo@atgoldenpacket.net", // CHANGE THIS to your email address (emails will be sent FROM this address).
             },
             subject: "New contact form submission",
             content: [
